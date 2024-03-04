@@ -1,0 +1,66 @@
+import random
+#quiz questions and answers
+quiz_questions = [
+    {
+        'question': 'What is the capital of France?',
+        'options': ['A) London', 'B) Paris', 'C) Rome', 'D) Berlin'],
+        'correct_answer': 'B'
+    },
+    {
+        'question': 'What is the largest planet in our solar system?',
+        'options': ['A) Jupiter', 'B) Earth', 'C) Saturn', 'D) Mars'],
+        'correct_answer': 'A'
+    },
+    {
+        'question': 'Which programming language is known as "the mother of all languages"?',
+        'options': ['A) Python', 'B) Java', 'C) C', 'D) COBOL'],
+        'correct_answer': 'C'
+    }
+    
+    #add more questions here if desired
+]
+def display_welcome_message():
+    print("Welcome to the Quiz Game!")
+    print("You will be presented with multiple-choice questions.")
+    print("Choose the correct answer by entering the corresponding letter (A, B, C, or D).\n")
+
+def ask_question(question_dict):
+    print(question_dict['question'])
+    for option in question_dict['options']:
+        print(option)
+    user_answer = input("Your answer: ").upper()
+    return user_answer
+
+def evaluate_answer(user_answer, correct_answer):
+    if user_answer == correct_answer:
+        print("Correct!\n")
+        return 1
+    else:
+        print(f"Incorrect. The correct answer is {correct_answer}.\n")
+        return 0
+
+def calculate_final_score(scores):
+    return sum(scores)
+
+def play_quiz():
+    display_welcome_message()
+    total_score = 0
+
+    while True:
+        random.shuffle(quiz_questions)
+        user_scores = []
+
+        for question in quiz_questions:
+            user_answer = ask_question(question)
+            score = evaluate_answer(user_answer, question['correct_answer'])
+            user_scores.append(score)
+
+        total_score = calculate_final_score(user_scores)
+        print(f"Your total score is: {total_score} out of {len(quiz_questions)}\n")
+
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again != 'yes':
+            print("Thank you for playing. Goodbye!")
+            break
+if _name_ == "_main_":
+    play_quiz()
